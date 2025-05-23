@@ -1,18 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
-import AppHeader from './components/AppHeader';
-import Hero from './components/Hero';
-import Footer from './components/Footer';
+import AppRouter from './AppRouter';
 import './styles/styles.css';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div className="App">
-      <AppHeader />
-      <Hero />
-      <Footer />
-      
-    </div>
+      <AppRouter loggedIn={loggedIn} />
+
+    </div> 
   );
 }
 

@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 
-const BookReturnForm = () => {
+const BookCheckoutForm = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
     books: [],
-    returnDate: '',
-    condition: '',
-    conditionDetails: ''
+    checkoutDate: '',
+    agreement: false
   });
 
   const booksList = [
@@ -59,11 +58,16 @@ const BookReturnForm = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (type === 'checkbox') {
+    if (name === 'books') {
+      const updatedBooks = formData.books.includes(value)
+        ? formData.books.filter((b) => b !== value)
+        : [...formData.books, value];
+
+      if (updatedBooks.length <= 3) {
+        setFormData({ ...formData, books: updatedBooks });
+      }
+    } else if (type === 'checkbox') {
       setFormData({ ...formData, [name]: checked });
-    } else if (name === 'books') {
-      const options = Array.from(e.target.selectedOptions, option => option.value);
-      setFormData({ ...formData, books: options });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -71,16 +75,26 @@ const BookReturnForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (formData.books.length === 0) {
+      alert('Please select at least one book.');
+      return;
+    }
+
+    if (!formData.agreement) {
+      alert('You must agree to the terms to proceed.');
+      return;
+    }
+
     console.log('Form Submitted:', formData);
-    // Add your submission logic here
+    // Add submission logic here
   };
 
   return (
     <div className="form-container">
-      <h1>GOD Kids Library Book Return</h1>
-      <p className="notice">This is NOT the checkout form</p>
-      <p><strong>This is the RETURN BOOKS form</strong></p>
-      <p>AFTER COMPLETING THIS FORM, PLEASE KEEP BOOKS BACK ON SHELF IN AN ORDERLY MANNER</p>
+      <h1>GOD Kids Library Book Checkout</h1>
+      <p><strong>If you are a child and want to check out a book, please ask an adult to fill this form out!</strong></p>
+
       <form onSubmit={handleSubmit}>
         <label>Full Name *</label>
         <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} required />
@@ -91,28 +105,40 @@ const BookReturnForm = () => {
         <label>Phone Number *</label>
         <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required />
 
-        <label>Books you are returning *</label>
-        <select name="books" multiple value={formData.books} onChange={handleChange} required>
+        <label>Books you want to check out (MAXIMUM OF 3) *</label>
+        <div className="book-checkboxes">
           {booksList.map((book, index) => (
-            <option key={index} value={book}>{book}</option>
+            <label key={index} className="book-option">
+              <input
+                type="checkbox"
+                name="books"
+                value={book}
+                checked={formData.books.includes(book)}
+                onChange={handleChange}
+              />
+              {book}
+            </label>
           ))}
-        </select>
+        </div>
 
-        <label>Book Return Date *</label>
-        <input type="date" name="returnDate" value={formData.returnDate} onChange={handleChange} required />
+        <label>Checkout Date (RETURN BY 2 WEEKS OF CHECKOUT DATE) *</label>
+        <input type="date" name="checkoutDate" value={formData.checkoutDate} onChange={handleChange} required />
 
-        <label>Condition Confirmation *</label>
-        <input type="radio" name="condition" value="Same" checked={formData.condition === 'Same'} onChange={handleChange} required />
-        I confirm that the book is being returned in the same condition as when borrowed.<br />
+        <label>
+          <input
+            type="checkbox"
+            name="agreement"
+            checked={formData.agreement}
+            onChange={handleChange}
+            required
+          />
+          By borrowing books from the library, I understand and agree that I am fully responsible for their care. If any book is lost, damaged, or not returned, I accept full responsibility and any consequences that may follow.
+        </label>
 
-        <input type="radio" name="condition" value="Other" checked={formData.condition === 'Other'} onChange={handleChange} />
-        Other:
-        <textarea name="conditionDetails" value={formData.conditionDetails} onChange={handleChange} placeholder="Describe any damage..." />
-
-        <button type="submit">Submit Book Return</button>
+        <button type="submit">Submit Book Checkout</button>
       </form>
     </div>
   );
 };
 
-export default BookReturnForm;
+export default BookCheckoutForm;

@@ -7,12 +7,15 @@ import {
 } from 'react-router-dom';
 import Home from './Home'; // Your main homepage component
 import BookReturnForm from './components/BookReturn';
+import BookCheckoutForm from './components/BookCheckout';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/">
       <Route index element={<Home />} />
       <Route path="return" element={<BookReturnForm />} />
+      <Route path="checkout" element={<BookCheckoutForm />} />
+
     </Route>
   )
 );

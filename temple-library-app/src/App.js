@@ -1,18 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import AppHeader from './components/AppHeader';
-import Hero from './components/Hero';
-import Footer from './components/Footer';
+import AppRouter from './AppRouter';
 import './styles/styles.css';
-
+import './styles/BookReturnForm.css';
+import { useState } from 'react';
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div className="App">
-      <AppHeader />
-      <Hero />
-      <Footer />
-      
-    </div>
+      <AppRouter loggedIn={isLoggedIn} />
+
+    </div> 
   );
 }
 

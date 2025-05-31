@@ -1,0 +1,102 @@
+/* BookReturn.css */
+
+.form-container {
+    background-color: #fefae0;
+    padding: 40px 30px;
+    border-radius: 12px;
+    max-width: 700px;
+    margin: 50px auto;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    font-family: 'Georgia', serif;
+    color: #4e342e;
+  }
+  
+  .form-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #7b341e;
+    margin-bottom: 10px;
+  }
+  
+  .notice {
+    text-align: center;
+    color: #a94442;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-container p {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-weight: 600;
+    margin: 10px 0 5px;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="date"],
+  select,
+  textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fffdf5;
+    margin-bottom: 15px;
+  }
+  
+  select[multiple] {
+    height: 150px;
+    overflow-y: scroll;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+  
+  input[type="radio"] {
+    margin-right: 8px;
+    margin-top: 10px;
+  }
+  
+  button[type="submit"] {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #a9481f;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #8a3919;
+  }
+  
+  @media (max-width: 600px) {
+    .form-container {
+      padding: 25px 15px;
+    }
+  
+    .form-container h1 {
+      font-size: 1.5rem;
+    }
+  
+    select[multiple] {
+      height: 120px;
+    }
+  }
+  
